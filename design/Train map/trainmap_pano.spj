@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<stitchProject version="2.0" cameraMotion="rigidScale" projection="perspective">
+  <vignetteCorrection redFactor="0" greenFactor="0" blueFactor="0" globalIntensityScale="1" />
+  <sourceImages>
+    <sourceImage filePath="C:\Users\MaxMac\Desktop\New folder (2)\IMG_E3743.JPG">
+      <cameraPose rotation="0.01357987028429904" angleUnit="degrees" scale="0.99995073211494245" translationX="-0.85278819320324051" translationY="1.5818099463126367" tolerance="4" />
+    </sourceImage>
+    <sourceImage filePath="C:\Users\MaxMac\Desktop\New folder (2)\IMG_E3744.JPG">
+      <cameraPose rotation="0.00868163908577625" angleUnit="degrees" scale="1.0000787882791735" translationX="0.27300813028275389" translationY="1.5791890964139539" tolerance="4" />
+    </sourceImage>
+    <sourceImage filePath="C:\Users\MaxMac\Desktop\New folder (2)\IMG_E3745.JPG">
+      <cameraPose rotation="0.014612411089900775" angleUnit="degrees" scale="0.99992255140054087" translationX="-0.052720061361674286" translationY="1.3432889866436437" tolerance="4" />
+    </sourceImage>
+    <sourceImage filePath="C:\Users\MaxMac\Desktop\New folder (2)\IMG_E3746.JPG">
+      <cameraPose rotation="0.0088324389883268888" angleUnit="degrees" scale="0.99992230695548423" translationX="0.23559601581987219" translationY="0.82849740438912911" tolerance="4" />
+    </sourceImage>
+    <sourceImage filePath="C:\Users\MaxMac\Desktop\New folder (2)\IMG_E3747.JPG">
+      <cameraPose rotation="-0.0095409046279681334" angleUnit="degrees" scale="0.99989894056164852" translationX="0.26725895649354875" translationY="0.4082968193004905" tolerance="4" />
+    </sourceImage>
+    <sourceImage filePath="C:\Users\MaxMac\Desktop\New folder (2)\IMG_E3748.JPG">
+      <cameraPose rotation="-0.00074513495223662663" angleUnit="degrees" scale="0.99994477896039069" translationX="0.33475330721220675" translationY="-6.6346051111200455E-05" tolerance="4" />
+    </sourceImage>
+    <sourceImage filePath="C:\Users\MaxMac\Desktop\New folder (2)\IMG_E3749.JPG">
+      <cameraPose rotation="0" angleUnit="degrees" scale="1" translationX="0" translationY="0" tolerance="4" />
+    </sourceImage>
+    <sourceImage filePath="C:\Users\MaxMac\Desktop\New folder (2)\IMG_E3750.JPG">
+      <cameraPose rotation="-0.0051581878006069582" angleUnit="degrees" scale="0.99994803474477012" translationX="0.91116609563677009" translationY="-0.051145662800039252" tolerance="4" />
+    </sourceImage>
+    <sourceImage filePath="C:\Users\MaxMac\Desktop\New folder (2)\IMG_E3751.JPG">
+      <cameraPose rotation="-0.017041211184048062" angleUnit="degrees" scale="1.0001774375551484" translationX="1.19497061536017" translationY="-0.24660154773649623" tolerance="4" />
+    </sourceImage>
+    <sourceImage filePath="C:\Users\MaxMac\Desktop\New folder (2)\IMG_E3754.JPG">
+      <cameraPose rotation="-0.002435232405813881" angleUnit="degrees" scale="0.99992448848900817" translationX="1.1949397983211356" translationY="0.52234430798522946" tolerance="4" />
+    </sourceImage>
+    <sourceImage filePath="C:\Users\MaxMac\Desktop\New folder (2)\IMG_E3755.JPG">
+      <cameraPose rotation="0.00490105647696634" angleUnit="degrees" scale="0.99997334036667873" translationX="0.98321502395332139" translationY="0.92015649605453342" tolerance="4" />
+    </sourceImage>
+  </sourceImages>
+</stitchProject>
