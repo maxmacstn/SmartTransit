@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1318</width>
-    <height>885</height>
+    <height>888</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,16 +16,48 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QVBoxLayout" name="verticalLayout_3">
       <item>
-       <widget class="QPushButton" name="pushButton_go">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Start</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="lineEdit_start"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_start_search">
+          <property name="text">
+           <string>Search</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>go</string>
+         <string>Dest</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit"/>
+       <widget class="QLineEdit" name="lineEdit_dest"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_dest_search">
+        <property name="text">
+         <string>Search</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
