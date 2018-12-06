@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1318</width>
-    <height>888</height>
+    <height>921</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,72 +16,99 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <layout class="QVBoxLayout" name="verticalLayout_3">
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>Start</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="lineEdit_start"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_start_search">
-          <property name="text">
-           <string>Search</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
-      <item>
-       <widget class="QLabel" name="label_2">
-        <property name="text">
-         <string>Dest</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEdit_dest"/>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_dest_search">
-        <property name="text">
-         <string>Search</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <widget class="QWidget" name="mapWidget" native="true">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
+     <widget class="QGroupBox" name="groupBox">
       <property name="minimumSize">
        <size>
-        <width>1300</width>
-        <height>800</height>
+        <width>0</width>
+        <height>0</height>
        </size>
       </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
+      <property name="title">
+       <string>Navigation</string>
       </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="1" column="2">
+        <widget class="QLabel" name="label_start_sta">
+         <property name="text">
+          <string>No nearest station found</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLineEdit" name="lineEdit_start"/>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Start</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Dest</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QLineEdit" name="lineEdit_dest">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="2">
+        <widget class="QLabel" name="label_dest_sta">
+         <property name="text">
+          <string>No nearest station found</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="2">
+        <widget class="QPushButton" name="pushButton_search">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>500</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Search</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QWidget" name="mapWidget" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>1300</width>
+          <height>800</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTreeWidget" name="treeWidget">
+        <column>
+         <property name="text">
+          <string notr="true">1</string>
+         </property>
+        </column>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>

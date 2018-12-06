@@ -1,20 +1,15 @@
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon, QPixmap
-
-class Station():
-    def __init__(self, name, common_name, x, y):
-        self.name = name
-        self.common_name = common_name
-        self.x = x
-        self.y = y
+from station import Station
 
 
-sapan_khwai = Station("bts_saphan_khwai", "Saphan Khwai", 635, 304)
-ari = Station("bts_ari", "Ari", 635, 333)
-sanam_pao = Station("bts_sanam_pao", "Sanam Pao", 635, 362)
-vict_mon = Station("bts_victory_monument", "Victory Monument", 635, 391)
-phaya_thai = Station("bts_phaya_thai", "Phaya Thai", 635, 427)
+
+sapan_khwai = Station("bts_saphan_khwai", "Saphan Khwai", 635, 304, 635, 304)
+ari = Station("bts_ari", "Ari", 635, 333,635, 333)
+sanam_pao = Station("bts_sanam_pao", "Sanam Pao", 635, 362, 635, 362)
+vict_mon = Station("bts_victory_monument", "Victory Monument", 635, 391, 635, 391)
+phaya_thai = Station("bts_phaya_thai", "Phaya Thai", 635, 427, 635, 427)
 
 
 class MapWidget(QWidget):
@@ -28,7 +23,7 @@ class MapWidget(QWidget):
 
         label = QLabel(self)
         label.resize(1300, 800)
-        self.pixmap = QPixmap('ui_asset\\train_map_1300x800.jpg')
+        self.pixmap = QPixmap('ui_asset/train_map_1300x800.jpg')
         self.pixmap = self.pixmap.scaled(label.size(), QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
 
         #Animation
@@ -47,7 +42,6 @@ class MapWidget(QWidget):
     def hilightStation(self, painter):
         stroke = 2
         radius = 13
-
 
 
         for station in self.hilightStationList:
@@ -73,3 +67,8 @@ class MapWidget(QWidget):
     def animateRoute(self):
         self.runningStation += 1
         self.update()
+
+
+    # def findPath(self, start_name, dest_name):
+    #
+    #     return list[]
