@@ -32,7 +32,18 @@ class Communicate(QtCore.QObject):
 class SmartTransitGUI(QMainWindow, form_class):
     stations_list = []
     start_sta = None
+    start_place_name = None
+    start_place_to_sta_dist = 0
     dest_sta = None
+    dest_place_name = None
+    dest_place_to_dest_dist = 0
+    arl_icon = QtGui.QIcon()
+    bts_icon = QtGui.QIcon()
+    circle_icon = QtGui.QIcon()
+    mrt_icon = QtGui.QIcon()
+    pin_icon = QtGui.QIcon()
+    taxi_icon = QtGui.QIcon()
+    walk_icon = QtGui.QIcon()
 
     def __init__(self):
         QMainWindow.__init__(self)
@@ -47,47 +58,185 @@ class SmartTransitGUI(QMainWindow, form_class):
         self.guiHelper.stations_list = self.stations_list
         self.helperThread = QtCore.QThread()
         self.guiHelper.findPlaceLoaded.connect(self.onPlaceLoaded)
+        self.guiHelper.onErrorOccur.connect(self.displayQueryError)
         self.guiHelper.moveToThread(self.helperThread)
         self.helperThread.start()
+
+        self.label_start_sta.hide()
+        self.label_dest_sta.hide()
+        self.pushButton_clear.clicked.connect(self.clearQuery)
+
+        self.treeWidget.hide()
+        self.setFixedSize(self.sizeHint())
+
+        self.arl_icon.addPixmap(QtGui.QPixmap('ui_asset/arl.png'), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bts_icon.addPixmap(QtGui.QPixmap('ui_asset/bts.png'), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.circle_icon.addPixmap(QtGui.QPixmap('ui_asset/circle.png'), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.mrt_icon.addPixmap(QtGui.QPixmap('ui_asset/mrt.png'), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pin_icon.addPixmap(QtGui.QPixmap('ui_asset/pin.png'), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.taxi_icon.addPixmap(QtGui.QPixmap('ui_asset/taxi.png'), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.walk_icon.addPixmap(QtGui.QPixmap('ui_asset/walk.png'), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 
 
     def initUI(self):
         pass
 
     def displayRoute(self):
-        self.mapWidget.showRoute()
-        print(self.lineEdit_start.text())
-
+        if (not self.lineEdit_start.text() or not  self.lineEdit_dest.text()):
+            self.displayQueryError("Please input in both field")
+            return
         self.guiHelper.findPlace(self.lineEdit_start.text(),1)
 
 
     def onPlaceLoaded(self,args,id):
         print("onPlaceLoaded " + str(args))
+
         try:
             if id == 1:
-                self.start_sta = self.guiHelper.findNearestStation(args["candidates"][0]["geometry"]["location"]["lat"],args["candidates"][0]["geometry"]["location"]["lng"])[0]
-                self.label_start_sta.setText(self.start_sta.name)
+                nearestStation = self.guiHelper.findNearestStation(args["candidates"][0]["geometry"]["location"]["lat"],args["candidates"][0]["geometry"]["location"]["lng"])
+                self.start_sta = nearestStation[0]
+                self.start_place_to_sta_dist = nearestStation[1]
+                self.start_place_name = args["candidates"][0]['name']
+                self.label_start_sta.setText(self.start_sta)
                 self.guiHelper.findPlace(self.lineEdit_dest.text(), 2)
-            if id == 2:
-                self.dest_sta = self.guiHelper.findNearestStation(args["candidates"][0]["geometry"]["location"]["lat"],args["candidates"][0]["geometry"]["location"]["lng"])[0]
-                self.label_dest_sta.setText(self.dest_sta.name)
-
-
-        except Exception:
-            if id == 1:
-                self.label_start_sta.setText("Error")
             elif id == 2:
-                self.label_dest_sta.setText("Error")
+                nearestStation = self.guiHelper.findNearestStation(args["candidates"][0]["geometry"]["location"]["lat"],args["candidates"][0]["geometry"]["location"]["lng"])
+                self.dest_sta = nearestStation[0]
+                self.dest_place_to_dest_dist = nearestStation[1]
+                self.dest_place_name = args["candidates"][0]['name']
+                self.label_dest_sta.setText(self.dest_sta)
+                if self.start_sta is not None:
+                    self.showResult()
+
+        except Exception as e:
+            print("Error in on place loaded "+ str(e))
+
+            if id == 1:
+                self.label_start_sta.setText("Error: Place not found")
+                self.start_sta = None
+            elif id == 2:
+                self.label_dest_sta.setText("Error: Place not found")
+
     def getStationList(self):
         stations = []
         with open(gui_station_data, 'r') as f:
             reader = csv.reader(f)
             for row in reader:
-                stations.append(Station(row[0], row[1], row[2],row[3]))
+                print(row)
+                stations.append(Station(row[0], row[1], float(row[2]),float(row[3]),int(row[4]),int(row[5])))
         # for station in stations:
         #     print(station.lng)
 
         return stations
+
+    def showResult(self):
+        if (self.start_place_to_sta_dist > 30 or self.dest_place_to_dest_dist > 30):
+            self.displayQueryError("Error: Input place is too far from stations")
+            return
+
+
+
+
+        print(self.guiHelper.findMinTimeRoute(self.start_sta, self.dest_sta))
+        stations_route = self.guiHelper.getObject(self.guiHelper.findMinTimeRoute(self.start_sta, self.dest_sta))
+        # stations_route = self.stations_list
+
+
+        #Display output in navigation bar
+        self.label_start_sta.show()
+        self.label_dest_sta.show()
+
+        self.label_start_sta.setText("Found nearest station : " + stations_route[0].getFullName())
+        self.label_dest_sta.setText("Found nearest station: "+  stations_route[len(stations_route) -1].getFullName())
+
+        #Display route in map
+        self.mapWidget.showRoute(stations_route)
+
+
+        steps = []
+
+
+        if self.start_place_to_sta_dist > 0.05:
+
+            if self.start_place_to_sta_dist < 1:
+                commuteDist = QTreeWidgetItem([str(int(self.start_place_to_sta_dist*1000))+" meters walk to "+ stations_route[0].getFullName()])
+                commuteDist.setIcon(0,self.walk_icon)
+            else:
+                commuteDist = QTreeWidgetItem(["{0:.2f}".format(self.start_place_to_sta_dist)+" km taxi trip to "+ stations_route[0].getFullName()])
+                commuteDist.setIcon(0,self.taxi_icon)
+            steps.append(commuteDist)
+
+
+
+        lastLineName = None
+        for station in stations_route:
+            if station.getLineName() != lastLineName:
+                trainLine = QTreeWidgetItem([station.getLineName()])
+                if "BTS" in station.getLineName():
+                    trainLine.setIcon(0,self.bts_icon)
+                if "Airport Link" in station.getLineName():
+                    trainLine.setIcon(0,self.arl_icon)
+                if "MRT" in station.getLineName():
+                    print(station.getLineName())
+                    trainLine.setIcon(0,self.mrt_icon)
+
+                lastLineName = station.getLineName()
+                steps.append(trainLine)
+                item = QTreeWidgetItem([station.common_name])
+                item.setIcon(0, self.circle_icon)
+                trainLine.addChild(item)
+            else:
+                item = QTreeWidgetItem([station.common_name])
+                item.setIcon(0, self.circle_icon)
+                steps[len(steps)-1].addChild(item)
+
+        if self.dest_place_to_dest_dist > 0.05:
+            if self.dest_place_to_dest_dist < 1:
+                commuteDist = QTreeWidgetItem([str(int(self.dest_place_to_dest_dist * 1000)) + " meters walk to " + self.dest_place_name])
+                commuteDist.setIcon(0,self.walk_icon)
+
+            else:
+                commuteDist = QTreeWidgetItem(["{0:.2f}".format(self.dest_place_to_dest_dist) + " km taxi trip to " + self.dest_place_name])
+                commuteDist.setIcon(0,self.taxi_icon)
+
+            steps.append(commuteDist)
+
+
+        w = QWidget()
+        w.resize(510, 210)
+
+        self.treeWidget.clear()
+        self.treeWidget.resize(500, 200)
+        # self.treeWidget.setColumnCount(3)
+        self.treeWidget.setHeaderLabels(["Steps"])
+        for step in steps:
+            self.treeWidget.addTopLevelItem(step)
+        self.treeWidget.expandAll()
+        self.treeWidget.show()
+        self.treeWidget.setRootIsDecorated(False)
+        self.setFixedSize(self.sizeHint())
+
+    def displayQueryError(self,error_message):
+        em = QErrorMessage(self)
+        em.showMessage(error_message)
+
+    def clearQuery(self):
+        self.label_start_sta.hide()
+        self.label_dest_sta.hide()
+        self.treeWidget.clear()
+        self.treeWidget.hide()
+        self.lineEdit_dest.clear()
+        self.lineEdit_start.clear()
+        self.mapWidget.clearRoute()
+
+        self.my_qtimer = QtCore.QTimer(self)
+        self.my_qtimer.timeout.connect(lambda : self.setFixedSize(self.sizeHint()))
+        self.my_qtimer.start(200)
+
+
+
+
+
 
 def launch():
     app = QApplication(sys.argv)

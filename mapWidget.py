@@ -4,12 +4,12 @@ from PyQt5.QtGui import QIcon, QPixmap
 from station import Station
 
 
-
-sapan_khwai = Station("bts_saphan_khwai", "Saphan Khwai", 635, 304, 635, 304)
-ari = Station("bts_ari", "Ari", 635, 333,635, 333)
-sanam_pao = Station("bts_sanam_pao", "Sanam Pao", 635, 362, 635, 362)
-vict_mon = Station("bts_victory_monument", "Victory Monument", 635, 391, 635, 391)
-phaya_thai = Station("bts_phaya_thai", "Phaya Thai", 635, 427, 635, 427)
+#
+# sapan_khwai = Station("bts_saphan_khwai", "Saphan Khwai", 635, 304, 635, 304)
+# ari = Station("bts_ari", "Ari", 635, 333,635, 333)
+# sanam_pao = Station("bts_sanam_pao", "Sanam Pao", 635, 362, 635, 362)
+# vict_mon = Station("bts_victory_monument", "Victory Monument", 635, 391, 635, 391)
+# phaya_thai = Station("bts_phaya_thai", "Phaya Thai", 635, 427, 635, 427)
 
 
 class MapWidget(QWidget):
@@ -55,20 +55,17 @@ class MapWidget(QWidget):
 
             painter.drawEllipse(station.x - radius/2, station.y - radius/2, radius, radius)
 
-    def showRoute(self):
+    def showRoute(self,stations):
         self.runningStation = 0
-        self.hilightStationList.append(sapan_khwai)
-        self.hilightStationList.append(ari)
-        self.hilightStationList.append(sanam_pao)
-        self.hilightStationList.append(vict_mon)
-        self.hilightStationList.append(phaya_thai)
+        self.hilightStationList = stations
         self.update()
 
     def animateRoute(self):
         self.runningStation += 1
         self.update()
 
+    def clearRoute(self):
+        self.runningStation = 0
+        self.hilightStationList = []
+        self.update()
 
-    # def findPath(self, start_name, dest_name):
-    #
-    #     return list[]

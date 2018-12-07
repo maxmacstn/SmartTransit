@@ -1,23 +1,79 @@
-bts_mo_chit,Mo Chit,13.8026249,100.5516764
-bts_saphan_khwai,Saphan Khwai,13.793972,100.5475849
-bts_ari,Ari,13.7804291,100.543054
-bts_sanam_pao,Sanam Pao,13.7726406,100.5393306
-bts_victory_monument,Victory Monument,13.7627945,100.5348922
-bts_phaya_thai,Phaya Thai,13.757061,100.5316856
-bts_ratchathewi,Ratchathewi,13.7519015,100.5293805
-bts_siam,Siam,13.7461695,100.5310261
-bts_chit_lom,Chit Lom,13.7430232,100.5399102
-bts_phloen_chit,Phloen Chit,13.7430414,100.5467728
-bts_nana,Nana,13.7405166,100.5532405
-bts_asok,Asok,13.7397513,100.556066
-bts_phrom_phong,Phrom Phong,13.7309015,100.5649927
-bts_thong_lo,Thong Lo,13.7241679,100.5722138
-bts_ekkamai,Ekkamai,13.7174176,100.581649
-bts_phra_khanong,Phra Khanong,13.7143071,100.5861792
-bts_on_nut,On Nut,13.7051076,100.5953248
-bts_bang_chak,Bang Chak,13.6938019,100.6032513
-bts_punnawithi,Punnawithi,13.6846678,100.6068278
-bts_udom_suk,Udom Suk,13.6787272,100.6064021
-bts_bang_na,Bang Na,13.6684507,100.6027064
-bts_bearing,Bearing,13.66059,100.5991299
-bts_samrong,Samrong,13.6467506,100.5939193
+bts_sukhumvit_mo_chit,Mo Chit,13.8026249,100.5516764,635,255
+bts_sukhumvit_saphan_khwai,Saphan Khwai,13.793972,100.5475849,635,304
+bts_sukhumvit_ari,Ari,13.7804291,100.543054,635,333
+bts_sukhumvit_sanam_pao,Sanam Pao,13.7726406,100.5393306,635,362
+bts_sukhumvit_victory_monument,Victory Monument,13.7627945,100.5348922,635,391
+bts_sukhumvit_phaya_thai,Phaya Thai,13.757061,100.5316856,635,427
+bts_sukhumvit_ratchathewi,Ratchathewi,13.7519015,100.5293805,635,459
+bts_sukhumvit_siam,Siam,13.7461695,100.5310261,654,485
+bts_sukhumvit_chit_lom,Chit Lom,13.7430232,100.5399102,697,485
+bts_sukhumvit_phloen_chit,Phloen Chit,13.7430414,100.5467728,739,485
+bts_sukhumvit_nana,Nana,13.7405166,100.5532405,781,485
+bts_sukhumvit_asok,Asok,13.7397513,100.556066,831,485
+bts_sukhumvit_phrom_phong,Phrom Phong,13.7309015,100.5649927,873,485
+bts_sukhumvit_thong_lo,Thong Lo,13.7241679,100.5722138,906,498
+bts_sukhumvit_ekkamai,Ekkamai,13.7174176,100.581649,930,521
+bts_sukhumvit_phra_khanong,Phra Khanong,13.7143071,100.5861792,952,544
+bts_sukhumvit_on_nut,On Nut,13.7051076,100.5953248,975,566
+bts_sukhumvit_bang_chak,Bang Chak,13.6938019,100.6032513,998,589
+bts_sukhumvit_punnawithi,Punnawithi,13.6846678,100.6068278,1012,616
+bts_sukhumvit_udom_suk,Udom Suk,13.6787272,100.6064021,1012,647
+bts_sukhumvit_bang_na,Bang Na,13.6684507,100.6027064,1012,678
+bts_sukhumvit_bearing,Bearing,13.66059,100.5991299,1012,710
+bts_sukhumvit_samrong,Samrong,13.6467506,100.5939193,1012,742
+bts_silom_national_stadium,National Stadium,13.745473,100.5251455,603,492
+bts_silom_siam,Siam,13.7432615,100.5322244,655,493
+bts_silom_ratchadamri,Ratchadamri,13.739277,100.5369153,674,530
+bts_silom_sala_daeng,Sala Daeng,13.7275148,100.5324394,674,562
+bts_silom_chong_nonsi,Chong Nonsi,13.7230202,100.5276385,658,601
+bts_silom_surasak,Surasak,13.7184548,100.5191694,627,632
+bts_silom_saphan_taksin,Saphan Taksin,13.7176477,100.5132589,595,650
+bts_silom_krung_thon_buri,Krung Thon Buri,13.7199508,100.501764,563,650
+bts_silom_wongwian_yai,Wongwian Yai,13.7203952,100.4944963,514,650
+bts_silom_pho_nimit,Pho Nimit,13.71891,100.4853876,471,650
+bts_silom_talat_phlu,Talat Phlu,13.7145978,100.4763118,432,650
+bts_silom_wutthakat,Wutthakat,13.7134344,100.4682806,386,650
+bts_silom_bang_wa,Bang Wa,13.7193594,100.4618039,341,650
+mrt_blue_hua_lamphong,Hua Lamphong,13.7379408,100.5140327,560,568
+mrt_blue_sam_yan,Sam Yan,13.7314107,100.5275353,629,568
+mrt_blue_silom,Silom,13.72843,100.5340584,681,568
+mrt_blue_lumphini,Lumphini,13.7246675,100.5412145,756,568
+mrt_blue_khlong_toei,Khlong Toei,13.7210637,100.5500087,798,568
+mrt_blue_queen_sirikit_national_convention_centre,Queen Sirikit National Convention Centre,13.7210949,100.5573901,824,543
+mrt_blue_sukhumvit,Sukhumvit,13.7358529,100.5591818,824,478
+mrt_blue_phetchaburi,Phetchaburi,13.7477858,100.5611452,824,426
+mrt_blue_phra_ram_9,Phra Ram 9,13.757229,100.564753,824,388
+mrt_blue_thailand_cultural_centre,Thailand Cultural Centre,13.7628779,100.5669514,824,353
+mrt_blue_huai_khwang,Huai Khwang,13.7774406,100.5709649,824,317
+mrt_blue_sutthisan,Sutthisan,13.7875853,100.5715713,824,282
+mrt_blue_ratchadapisak,Ratchadapisak,13.7994485,100.5730681,792,249
+mrt_blue_lat_phrao,Lat Phrao,13.8042929,100.571635,743,249
+mrt_blue_phahon_yothin,Phahon Yothin,13.8103818,100.5560495,694,249
+mrt_blue_chatuchak_park,Chatuchak Park,13.8038914,100.552439,642,249
+mrt_blue_kamphaeng_phet,Kamphaeng Phet,13.7987302,100.5471484,566,249
+mrt_blue_bang_sue,Bang Sue,13.801529,100.5368549,528,249
+mrt_blue_tao_poon_blue,Tao Poon Blue,13.8070074,100.5281396,485,249
+mrt_purple_tao_poon,Tao Poon,13.8062767,100.5302246,476,241
+mrt_purple_bang_son,Bang Son,13.8197916,100.5312241,476,215
+mrt_purple_wong_sawang,Wong Sawang,13.8292557,100.5256099,476,189
+mrt_purple_yaek_tiwanon,Yaek Tiwanon,13.8386857,100.5138599,476,163
+mrt_purple_ministry_of_public_health,Ministry of Public Health,13.8468927,100.5124268,476,137
+mrt_purple_nonthaburi_clinic_centre,Nonthaburi Clinic Centre,13.8603983,100.5111339,457,118
+mrt_purple_bang_krasor,Bang Krasor,13.8611267,100.5022749,418,118
+mrt_purple_yaek_nonthaburi_1,Yaek Nonthaburi 1,13.8656184,100.4941257,378,118
+mrt_purple_phra_nang_klao_bridge,Phra Nang Klao Bridge,13.8702017,100.4782818,340,118
+mrt_purple_sai_ma,Sai Ma,13.8712928,100.4641305,300,118
+mrt_purple_bang_rak_noi_tha_it,Bang Rak Noi Tha It,13.8747051,100.4550654,261,118
+mrt_purple_bang_rak_yai,Bang Rak Yai,13.8762148,100.4422704,222,118
+mrt_purple_bang_phu,Bang Phu,13.8747956,100.4304391,183,118
+mrt_purple_sam_yaek_bang_yai,Sam Yaek Bang Yai,13.873481,100.4176872,144,118
+mrt_purple_talad_bang_yai,Talad Bang Yai,13.8811424,100.4077083,105,98
+mrt_purple_khlong_bang_phai,Khlong Bang Phai,13.8913357,100.4074302,104,60
+arl_phaya_thai,Phaya Thai,13.7567379,100.5326535,642,420
+arl_ratchaprarop,Ratchaprarop,13.7551169,100.5399626,730,420
+arl_makkasan,Makkasan,13.7504988,100.5602287,818,420
+arl_ramkhamhaeng,Ramkhamhaeng,13.7425102,100.5995472,906,420
+arl_huai_mak,Huai Mak,13.738068,100.6371115,994,420
+arl_ban_thap_chang,Ban Thap Chang,13.7327841,100.6891566,1082,420
+arl_lat_krabang,Lat Krabang,13.7275472,100.7487334,1170,420
+arl_suvannabhumi,Suvannabhumi,13.6976619,100.7513383,1196,498
