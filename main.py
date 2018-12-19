@@ -45,6 +45,13 @@ class SmartTransitGUI(QMainWindow, form_class):
     taxi_icon = QtGui.QIcon()
     walk_icon = QtGui.QIcon()
 
+    bts_html_icon = "<html><img src='ui_asset/bts.png' height=\"20\" width=\"20\" </html>"
+    mrt_html_icon = "<html><img src='ui_asset/mrt.png' height=\"20\" width=\"20\" </html>"
+    arl_html_icon = "<html><img src='ui_asset/arl.png' height=\"20\" width=\"20\" </html>"
+    walk_html_icon = "<html><img src='ui_asset/walk.png' height=\"20\" width=\"20\" </html>"
+    taxi_html_icon = "<html><img src='ui_asset/taxi.png' height=\"20\" width=\"20\" </html>"
+    arrow_html_icon = "<html><img src='ui_asset/arrow.png' height=\"17\" width=\"12\" </html>"
+
     def __init__(self):
         QMainWindow.__init__(self)
         self.setupUi(self)
@@ -66,7 +73,7 @@ class SmartTransitGUI(QMainWindow, form_class):
         self.label_dest_sta.hide()
         self.pushButton_clear.clicked.connect(self.clearQuery)
 
-        self.treeWidget.hide()
+        self.groupBox_result.hide()
         self.setFixedSize(self.sizeHint())
 
         self.arl_icon.addPixmap(QtGui.QPixmap('ui_asset/arl.png'), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -87,6 +94,8 @@ class SmartTransitGUI(QMainWindow, form_class):
         self.pixmap_logo = QtGui.QPixmap('ui_asset/logo_300.png')
         self.pixmap_logo = self.pixmap_logo.scaled(self.label_logo.size(), QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
         self.label_logo.setPixmap(self.pixmap_logo)
+
+        self.label_result_step.setText(self.arrow_html_icon + " Sukhumvit line" )
 
 
         # self.label_loading.layout().addWidget(QLabel('Loading...'))
@@ -178,6 +187,7 @@ class SmartTransitGUI(QMainWindow, form_class):
         start_place = QTreeWidgetItem(["[Start] "+ self.start_place_name])
         start_place.setIcon(0,self.pin_icon)
         steps.append(start_place)
+        label_content = ""
 
 
         if self.start_place_to_sta_dist > 0.05:
@@ -185,9 +195,11 @@ class SmartTransitGUI(QMainWindow, form_class):
             if self.start_place_to_sta_dist < 1:
                 commuteDist = QTreeWidgetItem(["Walk  "+ str(int(self.start_place_to_sta_dist*1000)) + " m"])
                 commuteDist.setIcon(0,self.walk_icon)
+                label_content += self.walk_html_icon +  str(int(self.start_place_to_sta_dist*1000)) + "m " + self.arrow_html_icon
             else:
                 commuteDist = QTreeWidgetItem(["Taxi {0:.2f} km".format(self.start_place_to_sta_dist)])
                 commuteDist.setIcon(0,self.taxi_icon)
+                label_content += self.taxi_html_icon +  "{0:.2f}km ".format(self.start_place_to_sta_dist) + self.arrow_html_icon
             steps.append(commuteDist)
 
 
@@ -198,17 +210,23 @@ class SmartTransitGUI(QMainWindow, form_class):
                 trainLine = QTreeWidgetItem([station.getLineName()])
                 if "BTS" in station.getLineName():
                     trainLine.setIcon(0,self.bts_icon)
+                    label_content += self.bts_html_icon + "BTS"  + self.arrow_html_icon
                 if "Airport Link" in station.getLineName():
                     trainLine.setIcon(0,self.arl_icon)
+                    label_content += self.arl_html_icon+ "ARL"  + self.arrow_html_icon
+
                 if "MRT" in station.getLineName():
                     print(station.getLineName())
                     trainLine.setIcon(0,self.mrt_icon)
+                    label_content += self.mrt_html_icon + "MRT"  + self.arrow_html_icon
+
 
                 lastLineName = station.getLineName()
                 steps.append(trainLine)
                 item = QTreeWidgetItem([station.common_name])
                 item.setIcon(0, self.circle_icon)
                 trainLine.addChild(item)
+
             else:
                 item = QTreeWidgetItem([station.common_name])
                 item.setIcon(0, self.circle_icon)
@@ -218,9 +236,12 @@ class SmartTransitGUI(QMainWindow, form_class):
             if self.dest_place_to_dest_dist < 1:
                 commuteDist = QTreeWidgetItem(["Walk  "+ str(int(self.dest_place_to_dest_dist*1000)) + " m"])
                 commuteDist.setIcon(0,self.walk_icon)
+                label_content += self.walk_html_icon +  str(int(self.dest_place_to_dest_dist*1000)) + "m"
+
 
             else:
                 commuteDist = QTreeWidgetItem(["Taxi {0:.2f} km".format(self.dest_place_to_dest_dist)])
+                label_content += self.taxi_html_icon +  " {0:.2f}km".format(self.dest_place_to_dest_dist)
                 commuteDist.setIcon(0,self.taxi_icon)
 
             steps.append(commuteDist)
@@ -228,6 +249,7 @@ class SmartTransitGUI(QMainWindow, form_class):
         start_place = QTreeWidgetItem(["[Destination] " + self.dest_place_name])
         start_place.setIcon(0, self.pin_icon)
         steps.append(start_place)
+        self.label_result_step.setText(label_content)
 
         w = QWidget()
         w.resize(510, 210)
@@ -239,7 +261,7 @@ class SmartTransitGUI(QMainWindow, form_class):
         for step in steps:
             self.treeWidget.addTopLevelItem(step)
         self.treeWidget.expandAll()
-        self.treeWidget.show()
+        self.groupBox_result.show()
         self.treeWidget.setRootIsDecorated(False)
         self.setFixedSize(self.sizeHint())
 
@@ -253,7 +275,7 @@ class SmartTransitGUI(QMainWindow, form_class):
         self.label_start_sta.hide()
         self.label_dest_sta.hide()
         self.treeWidget.clear()
-        self.treeWidget.hide()
+        self.groupBox_result.hide()
         self.lineEdit_dest.clear()
         self.lineEdit_start.clear()
         self.mapWidget.clearRoute()

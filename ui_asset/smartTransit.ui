@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1828</width>
+    <width>1848</width>
     <height>1054</height>
    </rect>
   </property>
@@ -63,18 +63,64 @@
               <pointsize>11</pointsize>
              </font>
             </property>
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
             <property name="title">
              <string>Navigation</string>
             </property>
+            <property name="checkable">
+             <bool>false</bool>
+            </property>
             <layout class="QGridLayout" name="gridLayout">
-             <item row="7" column="3">
+             <item row="0" column="1">
+              <widget class="QLabel" name="label_3">
+               <property name="font">
+                <font>
+                 <family>Roboto</family>
+                 <pointsize>14</pointsize>
+                 <stylestrategy>PreferAntialias</stylestrategy>
+                </font>
+               </property>
+               <property name="text">
+                <string>START</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="2">
+              <widget class="QLineEdit" name="lineEdit_dest">
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>14</pointsize>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true"> border: 1px solid gray;
+ border-radius: 7px;
+padding-left: 10px;</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="placeholderText">
+                <string>Destination place name</string>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="2">
               <layout class="QHBoxLayout" name="horizontalLayout_3">
                <item>
                 <widget class="QPushButton" name="pushButton_search">
                  <property name="minimumSize">
                   <size>
-                   <width>200</width>
-                   <height>30</height>
+                   <width>150</width>
+                   <height>40</height>
                   </size>
                  </property>
                  <property name="maximumSize">
@@ -91,6 +137,14 @@
                    <kerning>true</kerning>
                   </font>
                  </property>
+                 <property name="autoFillBackground">
+                  <bool>false</bool>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"> border: 1px solid gray;
+ border-radius: 7px;
+background-color: white</string>
+                 </property>
                  <property name="text">
                   <string>Search</string>
                  </property>
@@ -100,8 +154,8 @@
                 <widget class="QPushButton" name="pushButton_clear">
                  <property name="minimumSize">
                   <size>
-                   <width>0</width>
-                   <height>30</height>
+                   <width>80</width>
+                   <height>40</height>
                   </size>
                  </property>
                  <property name="maximumSize">
@@ -117,6 +171,12 @@
                    <stylestrategy>PreferAntialias</stylestrategy>
                    <kerning>true</kerning>
                   </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"> border: 1px solid gray;
+ border-radius: 7px;
+background-color: white;
+margin: 10dp;</string>
                  </property>
                  <property name="text">
                   <string>Clear</string>
@@ -151,38 +211,6 @@
                </item>
               </layout>
              </item>
-             <item row="0" column="1">
-              <widget class="QLabel" name="label_3">
-               <property name="font">
-                <font>
-                 <family>Roboto</family>
-                 <pointsize>14</pointsize>
-                 <stylestrategy>PreferAntialias</stylestrategy>
-                </font>
-               </property>
-               <property name="text">
-                <string>START</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="3">
-              <widget class="QLineEdit" name="lineEdit_dest">
-               <property name="maximumSize">
-                <size>
-                 <width>16777215</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>14</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
              <item row="3" column="1">
               <widget class="QLabel" name="label_2">
                <property name="font">
@@ -197,7 +225,7 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="3">
+             <item row="0" column="2">
               <widget class="QLineEdit" name="lineEdit_start">
                <property name="maximumSize">
                 <size>
@@ -210,12 +238,32 @@
                  <pointsize>14</pointsize>
                 </font>
                </property>
+               <property name="toolTip">
+                <string>dyfdhdg</string>
+               </property>
+               <property name="toolTipDuration">
+                <number>1</number>
+               </property>
                <property name="statusTip">
                 <string extracomment="ffff"/>
                </property>
+               <property name="styleSheet">
+                <string notr="true"> border: 1px solid gray;
+ border-radius: 7px;
+padding-left: 10px</string>
+               </property>
+               <property name="maxLength">
+                <number>100</number>
+               </property>
+               <property name="frame">
+                <bool>true</bool>
+               </property>
+               <property name="placeholderText">
+                <string>Start place name</string>
+               </property>
               </widget>
              </item>
-             <item row="3" column="4">
+             <item row="3" column="3">
               <widget class="QLabel" name="label_dest_sta">
                <property name="font">
                 <font>
@@ -229,7 +277,7 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="4">
+             <item row="0" column="3">
               <widget class="QLabel" name="label_start_sta">
                <property name="font">
                 <font>
@@ -261,27 +309,165 @@
        </layout>
       </item>
       <item>
-       <widget class="QTreeWidget" name="treeWidget">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>500</width>
-          <height>0</height>
-         </size>
-        </property>
+       <widget class="QGroupBox" name="groupBox_result">
         <property name="font">
          <font>
-          <family>Roboto Medium</family>
-          <pointsize>15</pointsize>
+          <family>Roboto</family>
+          <pointsize>11</pointsize>
          </font>
         </property>
-        <column>
-         <property name="text">
-          <string notr="true">1</string>
-         </property>
-        </column>
+        <property name="title">
+         <string>Result</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QLabel" name="label_result_step">
+           <property name="font">
+            <font>
+             <pointsize>14</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>dfskldfk</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTreeWidget" name="treeWidget">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>500</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Roboto Medium</family>
+             <pointsize>15</pointsize>
+            </font>
+           </property>
+           <column>
+            <property name="text">
+             <string notr="true">1</string>
+            </property>
+           </column>
+          </widget>
+         </item>
+         <item>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="0" column="0">
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label">
+             <property name="font">
+              <font>
+               <family>Roboto Medium</family>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text">
+              <string>Commute time </string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QLabel" name="label_6">
+             <property name="font">
+              <font>
+               <family>Roboto</family>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>102</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_4">
+             <property name="font">
+              <font>
+               <family>Roboto Medium</family>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Total price </string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="label_5">
+             <property name="font">
+              <font>
+               <family>Roboto</family>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>52</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLabel" name="label_7">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>min</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="3">
+            <widget class="QLabel" name="label_8">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>฿</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QGridLayout" name="gridLayout_2"/>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>
@@ -293,7 +479,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1828</width>
+     <width>1848</width>
      <height>21</height>
     </rect>
    </property>
