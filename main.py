@@ -77,6 +77,20 @@ class SmartTransitGUI(QMainWindow, form_class):
         self.taxi_icon.addPixmap(QtGui.QPixmap('ui_asset/taxi.png'), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.walk_icon.addPixmap(QtGui.QPixmap('ui_asset/walk.png'), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 
+        movie = QtGui.QMovie("ui_asset/loading_io.gif")
+        self.label_loading.setMovie(movie)
+        movie.setScaledSize(QtCore.QSize(30, 30))
+        movie.start()
+        self.label_loading.hide()
+
+        self.label_logo.resize(300, 113)
+        self.pixmap_logo = QtGui.QPixmap('ui_asset/logo_300.png')
+        self.pixmap_logo = self.pixmap_logo.scaled(self.label_logo.size(), QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
+        self.label_logo.setPixmap(self.pixmap_logo)
+
+
+        # self.label_loading.layout().addWidget(QLabel('Loading...'))
+
 
     def initUI(self):
         pass
@@ -85,11 +99,13 @@ class SmartTransitGUI(QMainWindow, form_class):
         if (not self.lineEdit_start.text() or not  self.lineEdit_dest.text()):
             self.displayQueryError("Please input in both field")
             return
+        self.label_loading.show()
         self.guiHelper.findPlace(self.lineEdit_start.text(),1)
 
 
     def onPlaceLoaded(self,args,id):
         print("onPlaceLoaded " + str(args))
+
 
         try:
             if id == 1:
@@ -107,8 +123,12 @@ class SmartTransitGUI(QMainWindow, form_class):
                 self.label_dest_sta.setText(self.dest_sta)
                 if self.start_sta is not None:
                     self.showResult()
+                    self.label_loading.hide()
+
 
         except Exception as e:
+            self.label_loading.hide()
+
             print("Error in on place loaded "+ str(e))
 
             if id == 1:
@@ -155,14 +175,18 @@ class SmartTransitGUI(QMainWindow, form_class):
 
         steps = []
 
+        start_place = QTreeWidgetItem(["[Start] "+ self.start_place_name])
+        start_place.setIcon(0,self.pin_icon)
+        steps.append(start_place)
+
 
         if self.start_place_to_sta_dist > 0.05:
 
             if self.start_place_to_sta_dist < 1:
-                commuteDist = QTreeWidgetItem([str(int(self.start_place_to_sta_dist*1000))+" meters walk to "+ stations_route[0].getFullName()])
+                commuteDist = QTreeWidgetItem(["Walk  "+ str(int(self.start_place_to_sta_dist*1000)) + " m"])
                 commuteDist.setIcon(0,self.walk_icon)
             else:
-                commuteDist = QTreeWidgetItem(["{0:.2f}".format(self.start_place_to_sta_dist)+" km taxi trip to "+ stations_route[0].getFullName()])
+                commuteDist = QTreeWidgetItem(["Taxi {0:.2f} km".format(self.start_place_to_sta_dist)])
                 commuteDist.setIcon(0,self.taxi_icon)
             steps.append(commuteDist)
 
@@ -192,15 +216,18 @@ class SmartTransitGUI(QMainWindow, form_class):
 
         if self.dest_place_to_dest_dist > 0.05:
             if self.dest_place_to_dest_dist < 1:
-                commuteDist = QTreeWidgetItem([str(int(self.dest_place_to_dest_dist * 1000)) + " meters walk to " + self.dest_place_name])
+                commuteDist = QTreeWidgetItem(["Walk  "+ str(int(self.dest_place_to_dest_dist*1000)) + " m"])
                 commuteDist.setIcon(0,self.walk_icon)
 
             else:
-                commuteDist = QTreeWidgetItem(["{0:.2f}".format(self.dest_place_to_dest_dist) + " km taxi trip to " + self.dest_place_name])
+                commuteDist = QTreeWidgetItem(["Taxi {0:.2f} km".format(self.dest_place_to_dest_dist)])
                 commuteDist.setIcon(0,self.taxi_icon)
 
             steps.append(commuteDist)
 
+        start_place = QTreeWidgetItem(["[Destination] " + self.dest_place_name])
+        start_place.setIcon(0, self.pin_icon)
+        steps.append(start_place)
 
         w = QWidget()
         w.resize(510, 210)
@@ -219,6 +246,8 @@ class SmartTransitGUI(QMainWindow, form_class):
     def displayQueryError(self,error_message):
         em = QErrorMessage(self)
         em.showMessage(error_message)
+        self.label_loading.hide()
+
 
     def clearQuery(self):
         self.label_start_sta.hide()

@@ -6,5 +6,5 @@ prolog.consult("test.pl")
 
 
 
-print(list(prolog.query("path(mochit, X)")))
+print(list(prolog.query("path(mochit, X)"))[0]["X"])
 
