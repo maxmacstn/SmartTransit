@@ -1,11 +1,14 @@
 class Station():
     def __init__(self, name, common_name,lat,lng, x = 0, y = 0):
-        self.name = name
-        self.common_name = common_name
+        self.name = name                    # prolog name ex. mrt_blue_...
+        self.common_name = common_name      # ex. Phaya Thai
         self.lat = lat
         self.lng = lng
         self.x = x
         self.y = y
+
+    def getType(self):
+        return self.name.split("_")[0]
 
     def getFullName(self):
         out = ""
