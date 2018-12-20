@@ -4,6 +4,7 @@ from urllib.request import Request, urlopen
 import json, constants
 from geopy.distance import geodesic
 from pyswip import Prolog
+from caluculate_price import *
 
 import time
 
@@ -86,16 +87,17 @@ class GUIhelper(QtCore.QObject):
     def findMinTimeRoute(self,start_sta, dest_sta):
         # return [start_sta,"bts_sukhumvit_phaya_thai", "arl_phaya_thai", "arl_ratchaprarop","arl_makkasan","mrt_blue_phetchaburi",dest_sta]
 
-        result = list(self.prolog.query("astar( "+ start_sta+", "+ dest_sta +", X,Y,Z)"))[0]['Z']
+        result = list(self.prolog.query("astar( "+ start_sta+", "+ dest_sta +", X,Y,Z)"))[0]
+        cost = result['Y']
         resultList = []
-        for r in result:
+        for r in result['Z']:
             resultList.append(str(r))
 
         print(resultList)
 
 
         # return [start_sta,"bts_sukhumvit_phaya_thai", "arl_phaya_thai", "arl_ratchaprarop","arl_makkasan","mrt_blue_phetchaburi",dest_sta]
-        return  resultList
+        return  (cost,resultList)
 
     def getObject(self,station_list_str):
         stations = []
@@ -112,3 +114,71 @@ class GUIhelper(QtCore.QObject):
     # def findPath(self, start_name, dest_name):
     #
     #     return list[]
+
+
+    def calculate_price(self,stations_route):
+        price = 0
+        prices = []
+        lines = []
+        lastLineName = None
+        startIndex = 0
+        endIndex = 0
+
+        lastItemNum = len(stations_route) - 1
+
+        for i, station in enumerate(stations_route):
+            stationName = station.name
+            thisLinePrice = 0
+
+            if "tao_poon" in stationName:
+                stationName = "mrt_tao_poon"
+            elif "siam" in stationName:
+                stationName = "bts_siam"
+
+            if i == lastItemNum:
+                if lastLineName == "bts":
+                    thisLinePrice = bts_prices[startIndex][endIndex]
+                elif lastLineName == "mrt":
+                    thisLinePrice = mrt_prices[startIndex][endIndex]
+                elif lastLineName == "arl":
+                    thisLinePrice = arl_prices[count]
+                lines.append(lastLineName)
+                prices.append(thisLinePrice)
+                price += thisLinePrice
+
+            elif station.getType() != lastLineName:
+                if lastLineName != None:
+
+                    if lastLineName == "bts":
+                        thisLinePrice = bts_prices[startIndex][endIndex]
+                    elif lastLineName == "mrt":
+                        thisLinePrice = mrt_prices[startIndex][endIndex]
+                    elif lastLineName == "arl":
+                        thisLinePrice = arl_prices[count]
+                    lines.append(lastLineName)
+                    prices.append(thisLinePrice)
+                    price += thisLinePrice
+
+                lastLineName = station.getType()
+                if lastLineName == "bts":
+                    startIndex = bts_stations.index(stationName)
+                    endIndex = startIndex
+                elif lastLineName == "mrt":
+                    startIndex = mrt_stations.index(stationName)
+                    endIndex = startIndex
+
+                count = 0
+
+            else:
+                if lastLineName == "bts":
+                    endIndex = bts_stations.index(stationName)
+                elif lastLineName == "mrt":
+                    endIndex = mrt_stations.index(stationName)
+
+                count += 1
+
+        print("Sum price: " + str(price))
+        print("Price list: ", prices)
+        print("Line list: ", lines)
+
+        return price

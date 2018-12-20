@@ -1,4 +1,4 @@
-from GUIhelper import GUIhelper
+# from GUIhelper import GUIhelper
 import csv
 from station import Station
 
@@ -11,7 +11,7 @@ from station import Station
 mrt_stations = ["mrt_blue_hua_lamphong", "mrt_blue_sam_yan", "mrt_blue_silom", "mrt_blue_lumphini", "mrt_blue_khlong_toei", "mrt_blue_queen_sirikit_national_convention_centre",
                 "mrt_blue_sukhumvit", "mrt_blue_phetchaburi", "mrt_blue_phra_ram_9", "mrt_blue_thailand_cultural_centre", "mrt_blue_huai_khwang", "mrt_blue_sutthisan",
                 "mrt_blue_ratchadapisak", "mrt_blue_lat_phrao", "mrt_blue_phahon_yothin", "mrt_blue_chatuchak_park", "mrt_blue_kamphaeng_phet", "mrt_blue_bang_sue",
-                "mrt_tao_poon", "mrt_purple_bang_son", "mrt_purple_wong_sawang", "mrt_purple_yaek_tiwanon", "mrt_purple_ministry_of_public_health", "mrt_purple_nonthaburi_clinic_centre",
+                "mrt_tao_poon", "mrt_purple_bang_son", "mrt_purple_wong_sawang", "mrt_purple_yaek_tiwanon", "mrt_purple_ministry_of_public_health", "mrt_purple_nonthaburi_civic_centre",
                 "mrt_purple_bang_krasor", "mrt_purple_yaek_nonthaburi_1", "mrt_purple_phra_nang_klao_bridge", "mrt_purple_sai_ma", "mrt_purple_bang_rak_noi_tha_it", "mrt_purple_bang_rak_yai",
                 "mrt_purple_bang_phu", "mrt_purple_sam_yaek_bang_yai", "mrt_purple_talad_bang_yai", "mrt_purple_khlong_bang_phai"]
 
@@ -109,99 +109,102 @@ bts_prices = [[16, 16, 26, 30, 33, 37, 40, 44, 44, 44, 44, 44, 44, 44, 44, 44, 4
 arl_prices = [0, 15, 20, 25, 30, 35, 40, 45]
 
 
-
-def calculate_price(stations_route):
-    price = 0
-    prices = []
-    lines = []
-    lastLineName = None
-    startIndex = 0
-    endIndex = 0
-
-    lastItemNum = len(stations_route) - 1
-
-    for i, station in enumerate(stations_route):
-        stationName = station.name
-        thisLinePrice = 0
-
-        if "tao_poon" in stationName:
-            stationName = "mrt_tao_poon"
-        elif "siam" in stationName:
-            stationName = "bts_siam"
-
-        if i == lastItemNum:
-            if lastLineName == "bts":
-                thisLinePrice = bts_prices[startIndex][endIndex]
-            elif lastLineName == "mrt":
-                thisLinePrice = mrt_prices[startIndex][endIndex]
-            elif lastLineName == "arl":
-                thisLinePrice = arl_prices[count]
-            lines.append(lastLineName)
-            prices.append(thisLinePrice)
-            price += thisLinePrice
-
-        elif station.getType() != lastLineName:
-            if lastLineName != None:
-
-                if lastLineName == "bts":
-                    thisLinePrice = bts_prices[startIndex][endIndex]
-                elif lastLineName == "mrt":
-                    thisLinePrice = mrt_prices[startIndex][endIndex]
-                elif lastLineName == "arl":
-                    thisLinePrice = arl_prices[count]
-                lines.append(lastLineName)
-                prices.append(thisLinePrice)
-                price += thisLinePrice
-
-            lastLineName = station.getType()
-            if lastLineName == "bts":
-                startIndex = bts_stations.index(stationName)
-                endIndex = startIndex
-            elif lastLineName == "mrt":
-                startIndex = mrt_stations.index(stationName)
-                endIndex = startIndex
-
-            count = 0
-
-        else:
-            if lastLineName == "bts":
-                endIndex = bts_stations.index(stationName)
-            elif lastLineName == "mrt":
-                endIndex = mrt_stations.index(stationName)
-
-            count += 1
-
-    print("Sum price: " + str(price))
-    print("Price list: ", prices)
-    print("Line list: ", lines)
-
-    return price
-
-def getStationList():
-    stations = []
-    with open(gui_station_data, 'r') as f:
-        reader = csv.reader(f)
-        for row in reader:
-            # print(row)
-            stations.append(Station(row[0], row[1], float(row[2]), float(row[3]), int(row[4]), int(row[5])))
-    # for station in stations:
-    #     print(station.lng)
-
-    return stations
-
-gui_station_data = "ui_asset/gui_station_data.csv"
-
-guiHelper = GUIhelper()
-stations_list = getStationList()
-
-# Setup guihelper and move to another thread
-guiHelper.stations_list = stations_list
-
-route = ["bts_sukhumvit_ratchathewi", "bts_sukhumvit_phaya_thai", "arl_phaya_thai", "arl_ratchaprarop","arl_makkasan","mrt_blue_phetchaburi", "mrt_blue_phra_ram_9"]
-route_list = guiHelper.getObject(route)
+#
+# def calculate_price(stations_route):
+#     price = 0
+#     prices = []
+#     lines = []
+#     lastLineName = None
+#     startIndex = 0
+#     endIndex = 0
+#
+#     lastItemNum = len(stations_route) - 1
+#
+#     for i, station in enumerate(stations_route):
+#         stationName = station.name
+#         thisLinePrice = 0
+#
+#         if "tao_poon" in stationName:
+#             stationName = "mrt_tao_poon"
+#         elif "siam" in stationName:
+#             stationName = "bts_siam"
+#
+#         if i == lastItemNum:
+#             if lastLineName == "bts":
+#                 thisLinePrice = bts_prices[startIndex][endIndex]
+#             elif lastLineName == "mrt":
+#                 thisLinePrice = mrt_prices[startIndex][endIndex]
+#             elif lastLineName == "arl":
+#                 thisLinePrice = arl_prices[count]
+#             lines.append(lastLineName)
+#             prices.append(thisLinePrice)
+#             price += thisLinePrice
+#
+#         elif station.getType() != lastLineName:
+#             if lastLineName != None:
+#
+#                 if lastLineName == "bts":
+#                     thisLinePrice = bts_prices[startIndex][endIndex]
+#                 elif lastLineName == "mrt":
+#                     thisLinePrice = mrt_prices[startIndex][endIndex]
+#                 elif lastLineName == "arl":
+#                     thisLinePrice = arl_prices[count]
+#                 lines.append(lastLineName)
+#                 prices.append(thisLinePrice)
+#                 price += thisLinePrice
+#
+#             lastLineName = station.getType()
+#             if lastLineName == "bts":
+#                 startIndex = bts_stations.index(stationName)
+#                 endIndex = startIndex
+#             elif lastLineName == "mrt":
+#                 startIndex = mrt_stations.index(stationName)
+#                 endIndex = startIndex
+#
+#             count = 0
+#
+#         else:
+#             if lastLineName == "bts":
+#                 endIndex = bts_stations.index(stationName)
+#             elif lastLineName == "mrt":
+#                 endIndex = mrt_stations.index(stationName)
+#
+#             count += 1
+#
+#     print("Sum price: " + str(price))
+#     print("Price list: ", prices)
+#     print("Line list: ", lines)
+#
+#     return price
+#
+# def getStationList():
+#     stations = []
+#     with open(gui_station_data, 'r') as f:
+#         reader = csv.reader(f)
+#         for row in reader:
+#             # print(row)
+#             stations.append(Station(row[0], row[1], float(row[2]), float(row[3]), int(row[4]), int(row[5])))
+#     # for station in stations:
+#     #     print(station.lng)
+#
+#     return stations
 
 
 
-calculate_price(route_list)
 
+# gui_station_data = "ui_asset/gui_station_data.csv"
+#
+# guiHelper = GUIhelper()
+# stations_list = getStationList()
+#
+# # Setup guihelper and move to another thread
+# guiHelper.stations_list = stations_list
+#
+# route = ["bts_sukhumvit_ratchathewi", "bts_sukhumvit_phaya_thai", "arl_phaya_thai", "arl_ratchaprarop","arl_makkasan","mrt_blue_phetchaburi", "mrt_blue_phra_ram_9"]
+# route_list = guiHelper.getObject(route)
+#
+#
+#
+# calculate_price(route_list)
+#
 

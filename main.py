@@ -5,6 +5,7 @@ from mapWidget import MapWidget
 from GUIhelper import GUIhelper
 import csv
 import os,time
+import math
 from station import Station
 
 form_class = uic.loadUiType("ui_asset/smartTransit.ui")[0]
@@ -45,9 +46,11 @@ class SmartTransitGUI(QMainWindow, form_class):
     taxi_icon = QtGui.QIcon()
     walk_icon = QtGui.QIcon()
 
-    bts_html_icon = "<html><img src='ui_asset/bts.png' height=\"20\" width=\"20\" </html>"
-    mrt_html_icon = "<html><img src='ui_asset/mrt.png' height=\"20\" width=\"20\" </html>"
-    arl_html_icon = "<html><img src='ui_asset/arl.png' height=\"20\" width=\"20\" </html>"
+    bts_sukhumvit_html_icon = "<html><img src='ui_asset/train_step_label/bts_sukhumvit.png' height=\"20\" width=\"68\" </html>"
+    bts_silom_html_icon = "<html><img src='ui_asset/train_step_label/bts_silom.png' height=\"20\" width=\"68\" </html>"
+    mrt_blue_html_icon = "<html><img src='ui_asset/train_step_label/mrt_blue.png' height=\"20\" width=\"78\" </html>"
+    mrt_purple_html_icon = "<html><img src='ui_asset/train_step_label/mrt_purple.png' height=\"20\" width=\"78\" </html>"
+    arl_html_icon = "<html><img src='ui_asset/train_step_label/arl.png' height=\"20\" width=\"76\" </html>"
     walk_html_icon = "<html><img src='ui_asset/walk.png' height=\"20\" width=\"20\" </html>"
     taxi_html_icon = "<html><img src='ui_asset/taxi.png' height=\"20\" width=\"20\" </html>"
     arrow_html_icon = "<html><img src='ui_asset/arrow.png' height=\"17\" width=\"12\" </html>"
@@ -74,7 +77,7 @@ class SmartTransitGUI(QMainWindow, form_class):
         self.pushButton_clear.clicked.connect(self.clearQuery)
 
         self.groupBox_result.hide()
-        self.setFixedSize(self.sizeHint())
+        self.setFixedSize(1300,950)
 
         self.arl_icon.addPixmap(QtGui.QPixmap('ui_asset/arl.png'), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.bts_icon.addPixmap(QtGui.QPixmap('ui_asset/bts.png'), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -83,6 +86,8 @@ class SmartTransitGUI(QMainWindow, form_class):
         self.pin_icon.addPixmap(QtGui.QPixmap('ui_asset/pin.png'), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.taxi_icon.addPixmap(QtGui.QPixmap('ui_asset/taxi.png'), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.walk_icon.addPixmap(QtGui.QPixmap('ui_asset/walk.png'), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton_clear.setIcon(QtGui.QIcon('ui_asset/waste-bin.png'))
+        self.pushButton_search.setIcon(QtGui.QIcon('ui_asset/search.png'))
 
         movie = QtGui.QMovie("ui_asset/loading_io.gif")
         self.label_loading.setMovie(movie)
@@ -97,8 +102,15 @@ class SmartTransitGUI(QMainWindow, form_class):
 
         self.label_result_step.setText(self.arrow_html_icon + " Sukhumvit line" )
 
+        self.pushButton_start.clicked.connect(self.start)
+
 
         # self.label_loading.layout().addWidget(QLabel('Loading...'))
+
+    def start(self):
+        print("start")
+        self.stackedWidget.setCurrentIndex(0)
+
 
 
     def initUI(self):
@@ -116,35 +128,35 @@ class SmartTransitGUI(QMainWindow, form_class):
         print("onPlaceLoaded " + str(args))
 
 
-        try:
-            if id == 1:
-                nearestStation = self.guiHelper.findNearestStation(args["candidates"][0]["geometry"]["location"]["lat"],args["candidates"][0]["geometry"]["location"]["lng"])
-                self.start_sta = nearestStation[0]
-                self.start_place_to_sta_dist = nearestStation[1]
-                self.start_place_name = args["candidates"][0]['name']
-                self.label_start_sta.setText(self.start_sta)
-                self.guiHelper.findPlace(self.lineEdit_dest.text(), 2)
-            elif id == 2:
-                nearestStation = self.guiHelper.findNearestStation(args["candidates"][0]["geometry"]["location"]["lat"],args["candidates"][0]["geometry"]["location"]["lng"])
-                self.dest_sta = nearestStation[0]
-                self.dest_place_to_dest_dist = nearestStation[1]
-                self.dest_place_name = args["candidates"][0]['name']
-                self.label_dest_sta.setText(self.dest_sta)
-                if self.start_sta is not None:
-                    self.showResult()
-                    self.label_loading.hide()
+        # try:
+        if id == 1:
+            nearestStation = self.guiHelper.findNearestStation(args["candidates"][0]["geometry"]["location"]["lat"],args["candidates"][0]["geometry"]["location"]["lng"])
+            self.start_sta = nearestStation[0]
+            self.start_place_to_sta_dist = nearestStation[1]
+            self.start_place_name = args["candidates"][0]['name']
+            self.label_start_sta.setText(self.start_sta)
+            self.guiHelper.findPlace(self.lineEdit_dest.text(), 2)
+        elif id == 2:
+            nearestStation = self.guiHelper.findNearestStation(args["candidates"][0]["geometry"]["location"]["lat"],args["candidates"][0]["geometry"]["location"]["lng"])
+            self.dest_sta = nearestStation[0]
+            self.dest_place_to_dest_dist = nearestStation[1]
+            self.dest_place_name = args["candidates"][0]['name']
+            self.label_dest_sta.setText(self.dest_sta)
+            if self.start_sta is not None:
+                self.showResult()
+                self.label_loading.hide()
 
-
-        except Exception as e:
-            self.label_loading.hide()
-
-            print("Error in on place loaded "+ str(e))
-
-            if id == 1:
-                self.label_start_sta.setText("Error: Place not found")
-                self.start_sta = None
-            elif id == 2:
-                self.label_dest_sta.setText("Error: Place not found")
+        #
+        # except Exception as e:
+        #     self.label_loading.hide()
+        #
+        #     print("Error in on place loaded "+ str(e))
+        #
+        #     if id == 1:
+        #         self.label_start_sta.setText("Error: Place not found")
+        #         self.start_sta = None
+        #     elif id == 2:
+        #         self.label_dest_sta.setText("Error: Place not found")
 
     def getStationList(self):
         stations = []
@@ -167,7 +179,11 @@ class SmartTransitGUI(QMainWindow, form_class):
 
 
         print(self.guiHelper.findMinTimeRoute(self.start_sta, self.dest_sta))
-        stations_route = self.guiHelper.getObject(self.guiHelper.findMinTimeRoute(self.start_sta, self.dest_sta))
+        result = self.guiHelper.findMinTimeRoute(self.start_sta, self.dest_sta)
+        stations_route = self.guiHelper.getObject(result[1])
+        time_cost =  math.ceil(result[0]/60.0)
+
+
         # stations_route = self.stations_list
 
 
@@ -210,22 +226,30 @@ class SmartTransitGUI(QMainWindow, form_class):
                 trainLine = QTreeWidgetItem([station.getLineName()])
                 if "BTS" in station.getLineName():
                     trainLine.setIcon(0,self.bts_icon)
-                    label_content += self.bts_html_icon + "BTS"  + self.arrow_html_icon
+                    if station.getLineName() == "BTS sukhumvit line":
+                        label_content += self.bts_sukhumvit_html_icon +self.arrow_html_icon
+                    if station.getLineName() == "BTS silom line":
+                        label_content += self.bts_silom_html_icon + self.arrow_html_icon
+
                 if "Airport Link" in station.getLineName():
                     trainLine.setIcon(0,self.arl_icon)
-                    label_content += self.arl_html_icon+ "ARL"  + self.arrow_html_icon
+                    label_content += self.arl_html_icon+  self.arrow_html_icon
 
                 if "MRT" in station.getLineName():
                     print(station.getLineName())
                     trainLine.setIcon(0,self.mrt_icon)
-                    label_content += self.mrt_html_icon + "MRT"  + self.arrow_html_icon
 
+                    if station.getLineName() == "MRT blue line":
+                        label_content += self.mrt_blue_html_icon + self.arrow_html_icon
+                    if station.getLineName() == "MRT purple line":
+                        label_content += self.mrt_purple_html_icon + self.arrow_html_icon
 
                 lastLineName = station.getLineName()
                 steps.append(trainLine)
                 item = QTreeWidgetItem([station.common_name])
                 item.setIcon(0, self.circle_icon)
                 trainLine.addChild(item)
+                time_cost += 6
 
             else:
                 item = QTreeWidgetItem([station.common_name])
@@ -246,10 +270,16 @@ class SmartTransitGUI(QMainWindow, form_class):
 
             steps.append(commuteDist)
 
+        price = self.guiHelper.calculate_price(stations_route)
+
+        self.label_result_price.setText(str(price))
+
+
         start_place = QTreeWidgetItem(["[Destination] " + self.dest_place_name])
         start_place.setIcon(0, self.pin_icon)
         steps.append(start_place)
         self.label_result_step.setText(label_content)
+        self.label_result_time.setText(str(time_cost))
 
         w = QWidget()
         w.resize(510, 210)
