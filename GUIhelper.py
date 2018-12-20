@@ -3,7 +3,7 @@ from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 import json, constants
 from geopy.distance import geodesic
-from pyswip import prolog
+from pyswip import Prolog
 
 import time
 
@@ -17,6 +17,8 @@ class GUIhelper(QtCore.QObject):
     stations_list = None
     def __init__(self):
         QtCore.QObject.__init__(self)
+        self.prolog = Prolog()
+        self.prolog.consult("train_path.pl")
 
 
     @QtCore.pyqtSlot()
@@ -82,7 +84,18 @@ class GUIhelper(QtCore.QObject):
         return (minStation.name,minDist)
 
     def findMinTimeRoute(self,start_sta, dest_sta):
-        return [start_sta,"bts_sukhumvit_phaya_thai", "arl_phaya_thai", "arl_ratchaprarop","arl_makkasan","mrt_blue_phetchaburi",dest_sta]
+        # return [start_sta,"bts_sukhumvit_phaya_thai", "arl_phaya_thai", "arl_ratchaprarop","arl_makkasan","mrt_blue_phetchaburi",dest_sta]
+
+        result = list(self.prolog.query("astar( "+ start_sta+", "+ dest_sta +", X,Y,Z)"))[0]['Z']
+        resultList = []
+        for r in result:
+            resultList.append(str(r))
+
+        print(resultList)
+
+
+        # return [start_sta,"bts_sukhumvit_phaya_thai", "arl_phaya_thai", "arl_ratchaprarop","arl_makkasan","mrt_blue_phetchaburi",dest_sta]
+        return  resultList
 
     def getObject(self,station_list_str):
         stations = []

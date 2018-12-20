@@ -151,7 +151,7 @@ class SmartTransitGUI(QMainWindow, form_class):
         with open(gui_station_data, 'r') as f:
             reader = csv.reader(f)
             for row in reader:
-                print(row)
+                # print(row)
                 stations.append(Station(row[0], row[1], float(row[2]),float(row[3]),int(row[4]),int(row[5])))
         # for station in stations:
         #     print(station.lng)
