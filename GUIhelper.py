@@ -4,7 +4,7 @@ from urllib.request import Request, urlopen
 import json, constants
 from geopy.distance import geodesic
 from pyswip import Prolog
-from caluculate_price import *
+from price_data import *
 
 import time
 
