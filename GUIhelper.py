@@ -9,7 +9,7 @@ from caluculate_price import *
 import time
 
 class GUIhelper(QtCore.QObject):
-    findPlaceLoaded = QtCore.pyqtSignal(dict,int)
+    findPlaceLoaded = QtCore.pyqtSignal(dict,int)           #Pyqt Signal that returns place query data
     onErrorOccur = QtCore.pyqtSignal(str)
     nam = QtNetwork.QNetworkAccessManager()
 
@@ -22,6 +22,7 @@ class GUIhelper(QtCore.QObject):
         self.prolog.consult("train_path.pl")
 
 
+    #Find place using Google API
     @QtCore.pyqtSlot()
     def findPlace(self,name,reqid=0):
         print("findPlace "+ name)
@@ -56,10 +57,6 @@ class GUIhelper(QtCore.QObject):
             # print(json_data)
             self.findPlaceLoaded.emit(json_data,id)
 
-            # try:
-            #     self.findNearestStation(json_data["candidates"][0]["geometry"]["location"]["lat"],json_data["candidates"][0]["geometry"]["location"]["lng"])
-            # except Exception as e:
-            #     print("Error in findNearestStation " + str(e))
         else:
 
             print("Error occured: ", er)
@@ -110,10 +107,6 @@ class GUIhelper(QtCore.QObject):
             print(stations)
             raise Exception("Error convert list of string to Station object")
         return  stations
-
-    # def findPath(self, start_name, dest_name):
-    #
-    #     return list[]
 
 
     def calculate_price(self,stations_route):

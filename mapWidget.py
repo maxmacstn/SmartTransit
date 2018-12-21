@@ -4,13 +4,6 @@ from PyQt5.QtGui import QIcon, QPixmap
 from station import Station
 
 
-#
-# sapan_khwai = Station("bts_saphan_khwai", "Saphan Khwai", 635, 304, 635, 304)
-# ari = Station("bts_ari", "Ari", 635, 333,635, 333)
-# sanam_pao = Station("bts_sanam_pao", "Sanam Pao", 635, 362, 635, 362)
-# vict_mon = Station("bts_victory_monument", "Victory Monument", 635, 391, 635, 391)
-# phaya_thai = Station("bts_phaya_thai", "Phaya Thai", 635, 427, 635, 427)
-
 
 class MapWidget(QWidget):
     def __init__(self, parent):

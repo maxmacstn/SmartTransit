@@ -25,11 +25,6 @@ old_hook = sys.excepthook
 sys.excepthook = catch_exceptions
 
 
-class Communicate(QtCore.QObject):
-    updateBW = QtCore.pyqtSignal(int)
-
-
-
 class SmartTransitGUI(QMainWindow, form_class):
     stations_list = []
     start_sta = None
@@ -76,7 +71,7 @@ class SmartTransitGUI(QMainWindow, form_class):
         self.label_dest_sta.hide()
         self.pushButton_clear.clicked.connect(self.clearQuery)
 
-        self.groupBox_result.hide()
+        self.groupBox_result_2.hide()
         self.setFixedSize(1300,950)
 
         self.arl_icon.addPixmap(QtGui.QPixmap('ui_asset/arl.png'), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -100,22 +95,17 @@ class SmartTransitGUI(QMainWindow, form_class):
         self.pixmap_logo = self.pixmap_logo.scaled(self.label_logo.size(), QtCore.Qt.KeepAspectRatio, QtCore.Qt.SmoothTransformation)
         self.label_logo.setPixmap(self.pixmap_logo)
 
-        self.label_result_step.setText(self.arrow_html_icon + " Sukhumvit line" )
+        self.label_result_step_2.setText(self.arrow_html_icon + " Sukhumvit line" )
 
         self.pushButton_start.clicked.connect(self.start)
+        self.stackedWidget.setCurrentIndex(1)
 
 
-        # self.label_loading.layout().addWidget(QLabel('Loading...'))
-
+    #on pressed start button in welcome page
     def start(self):
-        print("start")
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(0)       #Change page to main page
 
-
-
-    def initUI(self):
-        pass
-
+    #On pressed search button
     def displayRoute(self):
         if (not self.lineEdit_start.text() or not  self.lineEdit_dest.text()):
             self.displayQueryError("Please input in both field")
@@ -123,41 +113,44 @@ class SmartTransitGUI(QMainWindow, form_class):
         self.label_loading.show()
         self.guiHelper.findPlace(self.lineEdit_start.text(),1)
 
-
+    #Callback function when guihelper finished finding the place from Google API
     def onPlaceLoaded(self,args,id):
         print("onPlaceLoaded " + str(args))
 
+        try:
+            if id == 1:
+                nearestStation = self.guiHelper.findNearestStation(args["candidates"][0]["geometry"]["location"]["lat"],args["candidates"][0]["geometry"]["location"]["lng"])
+                self.start_sta = nearestStation[0]
+                self.start_place_to_sta_dist = nearestStation[1]
+                self.start_place_name = args["candidates"][0]['name']
+                self.label_start_sta.setText(self.start_sta)
+                self.guiHelper.findPlace(self.lineEdit_dest.text(), 2)
+            elif id == 2:
+                nearestStation = self.guiHelper.findNearestStation(args["candidates"][0]["geometry"]["location"]["lat"],args["candidates"][0]["geometry"]["location"]["lng"])
+                self.dest_sta = nearestStation[0]
+                self.dest_place_to_dest_dist = nearestStation[1]
+                self.dest_place_name = args["candidates"][0]['name']
+                self.label_dest_sta.setText(self.dest_sta)
+                if self.start_sta is not None:
+                    self.showResult()
+                    self.label_loading.hide()
 
-        # try:
-        if id == 1:
-            nearestStation = self.guiHelper.findNearestStation(args["candidates"][0]["geometry"]["location"]["lat"],args["candidates"][0]["geometry"]["location"]["lng"])
-            self.start_sta = nearestStation[0]
-            self.start_place_to_sta_dist = nearestStation[1]
-            self.start_place_name = args["candidates"][0]['name']
-            self.label_start_sta.setText(self.start_sta)
-            self.guiHelper.findPlace(self.lineEdit_dest.text(), 2)
-        elif id == 2:
-            nearestStation = self.guiHelper.findNearestStation(args["candidates"][0]["geometry"]["location"]["lat"],args["candidates"][0]["geometry"]["location"]["lng"])
-            self.dest_sta = nearestStation[0]
-            self.dest_place_to_dest_dist = nearestStation[1]
-            self.dest_place_name = args["candidates"][0]['name']
-            self.label_dest_sta.setText(self.dest_sta)
-            if self.start_sta is not None:
-                self.showResult()
-                self.label_loading.hide()
 
-        #
-        # except Exception as e:
-        #     self.label_loading.hide()
-        #
-        #     print("Error in on place loaded "+ str(e))
-        #
-        #     if id == 1:
-        #         self.label_start_sta.setText("Error: Place not found")
-        #         self.start_sta = None
-        #     elif id == 2:
-        #         self.label_dest_sta.setText("Error: Place not found")
+        except Exception as e:
+            self.label_loading.hide()
 
+            print("Error in on place loaded "+ str(e) + str(id))
+
+            if id == 1:
+                self.label_start_sta.setText("Error: Place not found")
+                self.start_sta = None
+                self.displayQueryError("Start place is not found")
+            elif id == 2:
+                self.label_dest_sta.setText("Error: Place not found")
+                self.displayQueryError("Destination place is not found")
+
+
+    #Load station data from CSV file, this data are necessary for GUI such as full station name, pin pixel points.
     def getStationList(self):
         stations = []
         with open(gui_station_data, 'r') as f:
@@ -165,34 +158,27 @@ class SmartTransitGUI(QMainWindow, form_class):
             for row in reader:
                 # print(row)
                 stations.append(Station(row[0], row[1], float(row[2]),float(row[3]),int(row[4]),int(row[5])))
-        # for station in stations:
-        #     print(station.lng)
-
         return stations
 
+    #Runs this function after get the two station name form start and destination place.
     def showResult(self):
         if (self.start_place_to_sta_dist > 30 or self.dest_place_to_dest_dist > 30):
             self.displayQueryError("Error: Input place is too far from stations")
             return
 
 
-
-
-        print(self.guiHelper.findMinTimeRoute(self.start_sta, self.dest_sta))
-        result = self.guiHelper.findMinTimeRoute(self.start_sta, self.dest_sta)
-        stations_route = self.guiHelper.getObject(result[1])
-        time_cost =  math.ceil(result[0]/60.0)
-
-
-        # stations_route = self.stations_list
+        # print(self.guiHelper.findMinTimeRoute(self.start_sta, self.dest_sta))
+        result = self.guiHelper.findMinTimeRoute(self.start_sta, self.dest_sta)         #Get list of station of path and cost from the prolog
+        stations_route = self.guiHelper.getObject(result[1])                            #Convert list of station name to Station object
+        time_cost =  math.ceil(result[0]/60.0)                                          #Convert second to minute
 
 
         #Display output in navigation bar
         self.label_start_sta.show()
         self.label_dest_sta.show()
 
-        self.label_start_sta.setText("Found nearest station : " + stations_route[0].getFullName())
-        self.label_dest_sta.setText("Found nearest station: "+  stations_route[len(stations_route) -1].getFullName())
+        self.label_start_sta.setText("Nearest station : " + stations_route[0].getFullName())
+        self.label_dest_sta.setText("Nearest station: "+  stations_route[len(stations_route) -1].getFullName())
 
         #Display route in map
         self.mapWidget.showRoute(stations_route)
@@ -278,21 +264,21 @@ class SmartTransitGUI(QMainWindow, form_class):
         start_place = QTreeWidgetItem(["[Destination] " + self.dest_place_name])
         start_place.setIcon(0, self.pin_icon)
         steps.append(start_place)
-        self.label_result_step.setText(label_content)
+        self.label_result_step_2.setText(label_content)
         self.label_result_time.setText(str(time_cost))
 
         w = QWidget()
         w.resize(510, 210)
 
-        self.treeWidget.clear()
-        self.treeWidget.resize(500, 200)
-        # self.treeWidget.setColumnCount(3)
-        self.treeWidget.setHeaderLabels(["Steps"])
+        self.treeWidget_2.clear()
+        self.treeWidget_2.resize(500, 200)
+        # self.treeWidget_2.setColumnCount(3)
+        self.treeWidget_2.setHeaderLabels(["Steps"])
         for step in steps:
-            self.treeWidget.addTopLevelItem(step)
-        self.treeWidget.expandAll()
-        self.groupBox_result.show()
-        self.treeWidget.setRootIsDecorated(False)
+            self.treeWidget_2.addTopLevelItem(step)
+        self.treeWidget_2.expandAll()
+        self.groupBox_result_2.show()
+        self.treeWidget_2.setRootIsDecorated(False)
         self.setFixedSize(self.sizeHint())
 
     def displayQueryError(self,error_message):
@@ -304,8 +290,8 @@ class SmartTransitGUI(QMainWindow, form_class):
     def clearQuery(self):
         self.label_start_sta.hide()
         self.label_dest_sta.hide()
-        self.treeWidget.clear()
-        self.groupBox_result.hide()
+        self.treeWidget_2.clear()
+        self.groupBox_result_2.hide()
         self.lineEdit_dest.clear()
         self.lineEdit_start.clear()
         self.mapWidget.clearRoute()
@@ -323,6 +309,7 @@ def launch():
     app = QApplication(sys.argv)
     w = SmartTransitGUI()
     w.setWindowTitle('SmartTransit')
+    w.setWindowIcon(QtGui.QIcon("ui_asset/icon.png"))
 
     os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "0"
     app.setAttribute(QtCore.Qt.AA_DisableHighDpiScaling)
