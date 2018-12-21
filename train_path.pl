@@ -96,108 +96,108 @@ location(mrt_purple_khlong_bang_phai, 13.8913357, 100.4074302).
 
 
 
-/* dist(stationA,stationB, time).*/
+/* cost(stationA,stationB, time).*/
 /* time between two stations in seconds */
 
 /* Airport link */
-dist(arl_phaya_thai, arl_ratchaprarop, 60).
-dist(arl_ratchaprarop, arl_makkasan, 180).
-dist(arl_makkasan, arl_ramkhamhaeng, 240).
-dist(arl_ramkhamhaeng, arl_hua_mak, 240).
-dist(arl_hua_mak, arl_ban_thap_chang, 240).
-dist(arl_ban_thap_chang, arl_lat_krabang, 300).
-dist(arl_lat_krabang, arl_suvannabhumi, 300).
+cost(arl_phaya_thai, arl_ratchaprarop, 60).
+cost(arl_ratchaprarop, arl_makkasan, 180).
+cost(arl_makkasan, arl_ramkhamhaeng, 240).
+cost(arl_ramkhamhaeng, arl_hua_mak, 240).
+cost(arl_hua_mak, arl_ban_thap_chang, 240).
+cost(arl_ban_thap_chang, arl_lat_krabang, 300).
+cost(arl_lat_krabang, arl_suvannabhumi, 300).
 
 /* BTS Sukhumvit */
-dist(bts_sukhumvit_mo_chit, bts_sukhumvit_saphan_khwai, 120).
-dist(bts_sukhumvit_saphan_khwai, bts_sukhumvit_ari, 120).
-dist(bts_sukhumvit_ari, bts_sukhumvit_sanam_pao, 120).
-dist(bts_sukhumvit_sanam_pao, bts_sukhumvit_victory_monument, 120).
-dist(bts_sukhumvit_victory_monument, bts_sukhumvit_phaya_thai, 120).
-dist(bts_sukhumvit_phaya_thai, bts_sukhumvit_ratchathewi, 60).
-dist(bts_sukhumvit_ratchathewi, bts_sukhumvit_siam, 180).
-dist(bts_sukhumvit_siam, bts_sukhumvit_chit_lom, 120).
-dist(bts_sukhumvit_chit_lom, bts_sukhumvit_phloen_chit, 60).
-dist(bts_sukhumvit_phloen_chit, bts_sukhumvit_nana, 120).
-dist(bts_sukhumvit_nana, bts_sukhumvit_asok, 120).
-dist(bts_sukhumvit_asok, bts_sukhumvit_phrom_phong, 120).
-dist(bts_sukhumvit_phrom_phong, bts_sukhumvit_thong_lo, 60).
-dist(bts_sukhumvit_thong_lo, bts_sukhumvit_ekkamai, 120).
-dist(bts_sukhumvit_ekkamai, bts_sukhumvit_phra_khanong, 120).
-dist(bts_sukhumvit_phra_khanong, bts_sukhumvit_on_nut, 120).
-dist(bts_sukhumvit_on_nut, bts_sukhumvit_bang_chak, 120).
-dist(bts_sukhumvit_bang_chak, bts_sukhumvit_punnawithi, 120).
-dist(bts_sukhumvit_punnawithi, bts_sukhumvit_udom_suk, 60).
-dist(bts_sukhumvit_udom_suk, bts_sukhumvit_bang_na, 180).
-dist(bts_sukhumvit_bang_na, bts_sukhumvit_bearing, 60).
-dist(bts_sukhumvit_bearing, bts_sukhumvit_samrong, 120).
+cost(bts_sukhumvit_mo_chit, bts_sukhumvit_saphan_khwai, 120).
+cost(bts_sukhumvit_saphan_khwai, bts_sukhumvit_ari, 120).
+cost(bts_sukhumvit_ari, bts_sukhumvit_sanam_pao, 120).
+cost(bts_sukhumvit_sanam_pao, bts_sukhumvit_victory_monument, 120).
+cost(bts_sukhumvit_victory_monument, bts_sukhumvit_phaya_thai, 120).
+cost(bts_sukhumvit_phaya_thai, bts_sukhumvit_ratchathewi, 60).
+cost(bts_sukhumvit_ratchathewi, bts_sukhumvit_siam, 180).
+cost(bts_sukhumvit_siam, bts_sukhumvit_chit_lom, 120).
+cost(bts_sukhumvit_chit_lom, bts_sukhumvit_phloen_chit, 60).
+cost(bts_sukhumvit_phloen_chit, bts_sukhumvit_nana, 120).
+cost(bts_sukhumvit_nana, bts_sukhumvit_asok, 120).
+cost(bts_sukhumvit_asok, bts_sukhumvit_phrom_phong, 120).
+cost(bts_sukhumvit_phrom_phong, bts_sukhumvit_thong_lo, 60).
+cost(bts_sukhumvit_thong_lo, bts_sukhumvit_ekkamai, 120).
+cost(bts_sukhumvit_ekkamai, bts_sukhumvit_phra_khanong, 120).
+cost(bts_sukhumvit_phra_khanong, bts_sukhumvit_on_nut, 120).
+cost(bts_sukhumvit_on_nut, bts_sukhumvit_bang_chak, 120).
+cost(bts_sukhumvit_bang_chak, bts_sukhumvit_punnawithi, 120).
+cost(bts_sukhumvit_punnawithi, bts_sukhumvit_udom_suk, 60).
+cost(bts_sukhumvit_udom_suk, bts_sukhumvit_bang_na, 180).
+cost(bts_sukhumvit_bang_na, bts_sukhumvit_bearing, 60).
+cost(bts_sukhumvit_bearing, bts_sukhumvit_samrong, 120).
 
 /* BTS Silom */
-dist(bts_silom_national_stadium, bts_silom_siam, 60).
-dist(bts_silom_siam, bts_silom_ratchadamri, 60).
-dist(bts_silom_ratchadamri, bts_silom_sala_daeng, 120).
-dist(bts_silom_sala_daeng, bts_silom_chong_nonsi, 120).
-dist(bts_silom_chong_nonsi, bts_silom_surasak, 120).
-dist(bts_silom_surasak, bts_silom_saphan_taksin, 120).
-dist(bts_silom_saphan_taksin, bts_silom_krung_thon_buri, 180).
-dist(bts_silom_krung_thon_buri, bts_silom_wongwian_yai, 120).
-dist(bts_silom_wongwian_yai, bts_silom_pho_nimit, 120).
-dist(bts_silom_pho_nimit, bts_silom_talat_phlu, 120).
-dist(bts_silom_talat_phlu, bts_silom_wutthakat, 120).
-dist(bts_silom_wutthakat, bts_silom_bang_wa, 120).
+cost(bts_silom_national_stadium, bts_silom_siam, 60).
+cost(bts_silom_siam, bts_silom_ratchadamri, 60).
+cost(bts_silom_ratchadamri, bts_silom_sala_daeng, 120).
+cost(bts_silom_sala_daeng, bts_silom_chong_nonsi, 120).
+cost(bts_silom_chong_nonsi, bts_silom_surasak, 120).
+cost(bts_silom_surasak, bts_silom_saphan_taksin, 120).
+cost(bts_silom_saphan_taksin, bts_silom_krung_thon_buri, 180).
+cost(bts_silom_krung_thon_buri, bts_silom_wongwian_yai, 120).
+cost(bts_silom_wongwian_yai, bts_silom_pho_nimit, 120).
+cost(bts_silom_pho_nimit, bts_silom_talat_phlu, 120).
+cost(bts_silom_talat_phlu, bts_silom_wutthakat, 120).
+cost(bts_silom_wutthakat, bts_silom_bang_wa, 120).
 /* MRT Blue */
-dist(mrt_blue_hua_lamphong, mrt_blue_sam_yan, 135).
-dist(mrt_blue_sam_yan, mrt_blue_silom, 81).
-dist(mrt_blue_silom, mrt_blue_lumphini, 82).
-dist(mrt_blue_lumphini, mrt_blue_khlong_toei, 81).
-dist(mrt_blue_khlong_toei, mrt_blue_queen_sirikit_national_convention_centre, 80).
-dist(mrt_blue_queen_sirikit_national_convention_centre, mrt_blue_sukhumvit, 138).
-dist(mrt_blue_sukhumvit, mrt_blue_phetchaburi, 124).
-dist(mrt_blue_phetchaburi, mrt_blue_phra_ram_9, 86).
-dist(mrt_blue_phra_ram_9, mrt_blue_thailand_cultural_centre, 93).
-dist(mrt_blue_thailand_cultural_centre, mrt_blue_huai_khwang, 123).
-dist(mrt_blue_huai_khwang, mrt_blue_sutthisan, 89).
-dist(mrt_blue_sutthisan, mrt_blue_ratchadapisak, 82).
-dist(mrt_blue_ratchadapisak, mrt_blue_lat_phrao, 84).
-dist(mrt_blue_lat_phrao, mrt_blue_phahon_yothin, 94).
-dist(mrt_blue_phahon_yothin, mrt_blue_chatuchak_park, 127).
-dist(mrt_blue_chatuchak_park, mrt_blue_kamphaeng_phet, 78).
-dist(mrt_blue_kamphaeng_phet, mrt_blue_bang_sue, 88).
-dist(mrt_blue_bang_sue, mrt_blue_tao_poon, 86).
+cost(mrt_blue_hua_lamphong, mrt_blue_sam_yan, 135).
+cost(mrt_blue_sam_yan, mrt_blue_silom, 81).
+cost(mrt_blue_silom, mrt_blue_lumphini, 82).
+cost(mrt_blue_lumphini, mrt_blue_khlong_toei, 81).
+cost(mrt_blue_khlong_toei, mrt_blue_queen_sirikit_national_convention_centre, 80).
+cost(mrt_blue_queen_sirikit_national_convention_centre, mrt_blue_sukhumvit, 138).
+cost(mrt_blue_sukhumvit, mrt_blue_phetchaburi, 124).
+cost(mrt_blue_phetchaburi, mrt_blue_phra_ram_9, 86).
+cost(mrt_blue_phra_ram_9, mrt_blue_thailand_cultural_centre, 93).
+cost(mrt_blue_thailand_cultural_centre, mrt_blue_huai_khwang, 123).
+cost(mrt_blue_huai_khwang, mrt_blue_sutthisan, 89).
+cost(mrt_blue_sutthisan, mrt_blue_ratchadapisak, 82).
+cost(mrt_blue_ratchadapisak, mrt_blue_lat_phrao, 84).
+cost(mrt_blue_lat_phrao, mrt_blue_phahon_yothin, 94).
+cost(mrt_blue_phahon_yothin, mrt_blue_chatuchak_park, 127).
+cost(mrt_blue_chatuchak_park, mrt_blue_kamphaeng_phet, 78).
+cost(mrt_blue_kamphaeng_phet, mrt_blue_bang_sue, 88).
+cost(mrt_blue_bang_sue, mrt_blue_tao_poon, 86).
 
 /* MRT Purple */
-dist(mrt_purple_tao_poon, mrt_purple_bang_son, 135).
-dist(mrt_purple_bang_son, mrt_purple_wong_sawang, 81).
-dist(mrt_purple_wong_sawang, mrt_purple_yaek_tiwanon, 82).
-dist(mrt_purple_yaek_tiwanon, mrt_purple_ministry_of_public_health, 81).
-dist(mrt_purple_ministry_of_public_health, mrt_purple_nonthaburi_civic_centre, 80).
-dist(mrt_purple_nonthaburi_civic_centre, mrt_purple_bang_krasor, 138).
-dist(mrt_purple_bang_krasor, mrt_purple_yaek_nonthaburi_1, 124).
-dist(mrt_purple_yaek_nonthaburi_1, mrt_purple_phra_nang_klao_bridge, 86).
-dist(mrt_purple_phra_nang_klao_bridge, mrt_purple_sai_ma, 93).
-dist(mrt_purple_sai_ma, mrt_purple_bang_rak_noi_tha_it, 123).
-dist(mrt_purple_bang_rak_noi_tha_it, mrt_purple_bang_rak_yai, 89).
-dist(mrt_purple_bang_rak_yai, mrt_purple_bang_phu, 82).
-dist(mrt_purple_bang_phu, mrt_purple_sam_yaek_bang_yai, 84).
-dist(mrt_purple_sam_yaek_bang_yai, mrt_purple_talad_bang_yai, 94).
-dist(mrt_purple_talad_bang_yai, mrt_purple_khlong_bang_phai, 127).
+cost(mrt_purple_tao_poon, mrt_purple_bang_son, 135).
+cost(mrt_purple_bang_son, mrt_purple_wong_sawang, 81).
+cost(mrt_purple_wong_sawang, mrt_purple_yaek_tiwanon, 82).
+cost(mrt_purple_yaek_tiwanon, mrt_purple_ministry_of_public_health, 81).
+cost(mrt_purple_ministry_of_public_health, mrt_purple_nonthaburi_civic_centre, 80).
+cost(mrt_purple_nonthaburi_civic_centre, mrt_purple_bang_krasor, 138).
+cost(mrt_purple_bang_krasor, mrt_purple_yaek_nonthaburi_1, 124).
+cost(mrt_purple_yaek_nonthaburi_1, mrt_purple_phra_nang_klao_bridge, 86).
+cost(mrt_purple_phra_nang_klao_bridge, mrt_purple_sai_ma, 93).
+cost(mrt_purple_sai_ma, mrt_purple_bang_rak_noi_tha_it, 123).
+cost(mrt_purple_bang_rak_noi_tha_it, mrt_purple_bang_rak_yai, 89).
+cost(mrt_purple_bang_rak_yai, mrt_purple_bang_phu, 82).
+cost(mrt_purple_bang_phu, mrt_purple_sam_yaek_bang_yai, 84).
+cost(mrt_purple_sam_yaek_bang_yai, mrt_purple_talad_bang_yai, 94).
+cost(mrt_purple_talad_bang_yai, mrt_purple_khlong_bang_phai, 127).
 
 
 
 
 /* Junction */
-dist(bts_sukhumvit_mo_chit, mrt_blue_chatuchak_park, 300).
-dist(bts_sukhumvit_phaya_thai, arl_phaya_thai, 300).
-dist(bts_sukhumvit_siam, bts_silom_siam, 180).
-dist(bts_sukhumvit_asok, mrt_blue_sukhumvit, 300).
-dist(bts_silom_sala_daeng, mrt_blue_silom, 300).
-dist(mrt_blue_phetchaburi, arl_makkasan, 300).
-dist(mrt_blue_tao_poon, mrt_purple_tao_poon, 180).
+cost(bts_sukhumvit_mo_chit, mrt_blue_chatuchak_park, 300).
+cost(bts_sukhumvit_phaya_thai, arl_phaya_thai, 300).
+cost(bts_sukhumvit_siam, bts_silom_siam, 180).
+cost(bts_sukhumvit_asok, mrt_blue_sukhumvit, 300).
+cost(bts_silom_sala_daeng, mrt_blue_silom, 300).
+cost(mrt_blue_phetchaburi, arl_makkasan, 300).
+cost(mrt_blue_tao_poon, mrt_purple_tao_poon, 180).
 
 
-/* dist(X,Y,Z) is the same as dist(Y,X,Z) */
-distance(X,Y,Z):- dist(X,Y,Z).
-distance(X,Y,Z):-dist(Y,X,Z).
+/* cost(X,Y,Z) is the same as cost(Y,X,Z) */
+time(X,Y,Z):- cost(X,Y,Z).
+time(X,Y,Z):-cost(Y,X,Z).
 
 
 
@@ -212,7 +212,7 @@ astar1([(_,_,Tp,[Final|R])|_],Final,[Final|R],Tp,Result):- reverse([Final|R],Res
                           write(L3).
 
 astar1([(_,_,P,[X|R1])|R2],Final,C,Tp,Result):-
-       findall((NewSum,E1,NP,[Z,X|R1]),(distance(X,Z,V),
+       findall((NewSum,E1,NP,[Z,X|R1]),(time(X,Z,V),
                not(member(Z,R1)),
                NP is P+V,
                estimation(Z,Final,E1),
@@ -224,7 +224,7 @@ astar1([(_,_,P,[X|R1])|R2],Final,C,Tp,Result):-
 
 
 
-/* Haversine Formula to calculate distance, also to find time */
+/* Haversine Formula to calculate min path, also to find time */
  estimation(Station1,Station2,Est):- location(Station1,Lat1,Lng1), location(Station2,Lat2,Lng2),
                    LatRad1 is (Lat1*pi)/180,
                    LngRad1 is (Lng1*pi)/180,
